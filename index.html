@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Me 🎁</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      color: white;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    button {
+      background: white;
+      color: #ff4e88;
+      border: none;
+      padding: 15px 25px;
+      font-size: 18px;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>You have a surprise 🎁</h1>
+  <button onclick="openGift()">Open Your Gift</button>
+  <div id="gift" class="hidden">
+    <h2>💖 Surprise!!! 💖</h2>
+    <p>You are amazing. Never forget that.</p>
+  </div>
+</div>
+
+<script>
+  function openGift() {
+    document.getElementById("gift").classList.remove("hidden");
+  }
+</script>
+
+</body>
+</html>
