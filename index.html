@@ -5,6 +5,7 @@
 <title>For You 💜</title>
 
 <style>
+/* BODY AND BACKGROUND */
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
@@ -19,14 +20,14 @@ body {
   position: relative;
 }
 
-/* Shimmer background */
+/* Shimmering background effect */
 body::before {
   content: '';
   position: absolute;
   width: 200%;
   height: 200%;
   background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  animation: shimmer 5s linear infinite;
+  animation: shimmer 10s linear infinite;
   z-index: 0;
 }
 
@@ -35,27 +36,35 @@ body::before {
   100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
+/* MAIN CONTAINER */
 .container {
   width: 90%;
   max-width: 400px;
   z-index: 2;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center everything horizontally */
+}
+
+/* INPUT AND BUTTON STYLING */
+input, button {
+  width: 100%;
+  max-width: 300px; /* keeps elements from stretching too wide */
 }
 
 input {
-  width: 100%;
   padding: 14px;
   border-radius: 25px;
   border: none;
   margin-top: 15px;
+  margin-bottom: 10px; /* space before button */
   font-size: 16px;
   text-align: center;
 }
 
 button {
-  width: 100%;
   padding: 14px;
-  margin-top: 15px;
   border-radius: 25px;
   border: none;
   font-size: 16px;
@@ -71,10 +80,12 @@ button:active {
   box-shadow: 0 0 20px #ffd6ff;
 }
 
+/* HIDDEN ELEMENTS */
 .hidden {
   display: none;
 }
 
+/* GIFT SECTION ANIMATION */
 #gift {
   animation: fadeIn 1.5s ease forwards;
 }
@@ -85,6 +96,7 @@ button:active {
   margin-bottom: 15px;
 }
 
+/* ANIMATIONS */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -96,7 +108,7 @@ button:active {
   100% { transform: scale(1); }
 }
 
-/* Floating hearts effect */
+/* FLOATING HEARTS EFFECT */
 .floating-heart {
   position: absolute;
   font-size: 20px;
@@ -122,6 +134,7 @@ button:active {
 
 <div class="container">
 
+<!-- LOGIN PAGE -->
 <div id="login">
   <h2>🔐 A Special Surprise Awaits</h2>
   <p>Enter the secret code 💜</p>
@@ -130,13 +143,14 @@ button:active {
   <p id="error" style="color:#ffd6ff;"></p>
 </div>
 
+<!-- GIFT PAGE -->
 <div id="gift" class="hidden">
   <div class="heart">💜</div>
   <h1>To My Favorite Person</h1>
   <p>
-    Every moment with you feels magical.  
-    You make my world softer, brighter, and warmer.  
-    This little surprise is just a reminder  
+    Every moment with you feels magical.<br>  
+    You make my world softer, brighter, and warmer.<br>  
+    This little surprise is just a reminder<br>  
     of how special you are to me.
   </p>
   <h3>Always yours 💫</h3>
@@ -145,7 +159,7 @@ button:active {
 </div>
 
 <script>
-// Password check
+// PASSWORD CHECK
 function checkPassword() {
   const input = document.getElementById("password").value;
   const correctPassword = "14344_Nourito";
@@ -159,7 +173,7 @@ function checkPassword() {
   }
 }
 
-// Floating hearts effect
+// FLOATING HEARTS EFFECT
 function startFloatingHearts() {
   const colors = ["#ff6ff2","#ffd6ff","#ffb6c1"];
   for(let i=0; i<15; i++){
@@ -179,7 +193,7 @@ function startFloatingHearts() {
   setTimeout(startFloatingHearts, 1500);
 }
 
-// Start some floating hearts on first page immediately
+// START FLOATING HEARTS IMMEDIATELY ON LOGIN PAGE
 startFloatingHearts();
 </script>
 
