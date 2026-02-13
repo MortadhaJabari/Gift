@@ -1,56 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Open Me 🎁</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      color: white;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💜</title>
 
-    .container {
-      padding: 20px;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #4e008e, #9b30ff);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
 
-    button {
-      background: white;
-      color: #ff4e88;
-      border: none;
-      padding: 15px 25px;
-      font-size: 18px;
-      border-radius: 30px;
-      cursor: pointer;
-    }
+.container {
+  width: 90%;
+  max-width: 400px;
+}
 
-    .hidden {
-      display: none;
-      margin-top: 20px;
-    }
-  </style>
+input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 25px;
+  border: none;
+  margin-top: 15px;
+  font-size: 16px;
+  text-align: center;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  background: white;
+  color: #6a0dad;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+#gift {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.heart {
+  font-size: 40px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-  <h1>You have a surprise 🎁</h1>
-  <button onclick="openGift()">Open Your Gift</button>
-  <div id="gift" class="hidden">
-    <h2>💖 Surprise!!! 💖</h2>
-    <p>You are amazing. Never forget that.</p>
-  </div>
+
+<div id="login">
+  <h2>🔐 A Special Surprise Awaits</h2>
+  <p>Enter the secret code 💜</p>
+  <input type="password" id="password" placeholder="Enter password">
+  <button onclick="checkPassword()">Unlock</button>
+  <p id="error" style="color:#ffd6ff;"></p>
+</div>
+
+<div id="gift" class="hidden">
+  <div class="heart">💜</div>
+  <h1>To My Favorite Person</h1>
+  <p>
+    Every moment with you feels magical.  
+    You make my world softer, brighter, and warmer.  
+    This little surprise is just a reminder  
+    of how special you are to me.
+  </p>
+  <h3>Always yours 💫</h3>
+</div>
+
 </div>
 
 <script>
-  function openGift() {
+function checkPassword() {
+  const input = document.getElementById("password").value;
+  const correctPassword = "14344_Nourito";
+
+  if (input === correctPassword) {
+    document.getElementById("login").classList.add("hidden");
     document.getElementById("gift").classList.remove("hidden");
+  } else {
+    document.getElementById("error").innerText = "That’s not the right code 💔";
   }
+}
 </script>
 
 </body>
