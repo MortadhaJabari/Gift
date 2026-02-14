@@ -5,7 +5,8 @@
 <title>For You 💜</title>
 
 <style>
-/* BODY AND BACKGROUND */
+
+/* BODY */
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
@@ -18,16 +19,22 @@ body {
   text-align: center;
   overflow: hidden;
   position: relative;
+  transition: transform 1.2s ease;
 }
 
-/* Shimmering background effect */
+/* HUG ZOOM EFFECT */
+body.hug {
+  transform: scale(1.05);
+}
+
+/* Shimmer */
 body::before {
   content: '';
   position: absolute;
   width: 200%;
   height: 200%;
   background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  animation: shimmer 10s linear infinite;
+  animation: shimmer 12s linear infinite;
   z-index: 0;
 }
 
@@ -36,7 +43,7 @@ body::before {
   100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* MAIN CONTAINER */
+/* CONTAINER */
 .container {
   width: 90%;
   max-width: 400px;
@@ -44,13 +51,13 @@ body::before {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center; /* center everything horizontally */
+  align-items: center;
 }
 
-/* INPUT AND BUTTON STYLING */
+/* INPUT & BUTTON */
 input, button {
   width: 100%;
-  max-width: 300px; /* keeps elements from stretching too wide */
+  max-width: 300px;
 }
 
 input {
@@ -58,7 +65,7 @@ input {
   border-radius: 25px;
   border: none;
   margin-top: 15px;
-  margin-bottom: 10px; /* space before button */
+  margin-bottom: 10px;
   font-size: 16px;
   text-align: center;
 }
@@ -80,35 +87,71 @@ button:active {
   box-shadow: 0 0 20px #ffd6ff;
 }
 
-/* HIDDEN ELEMENTS */
+/* HIDDEN */
 .hidden {
   display: none;
 }
 
-/* GIFT SECTION ANIMATION */
-#gift {
-  animation: fadeIn 1.5s ease forwards;
-}
-
+/* HEART */
 .heart {
-  font-size: 50px;
-  animation: pulse 1.5s infinite;
+  font-size: 60px;
+  animation: pulse 1.6s infinite;
   margin-bottom: 15px;
-}
-
-/* ANIMATIONS */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  50% { transform: scale(1.3); }
   100% { transform: scale(1); }
 }
 
-/* FLOATING HEARTS EFFECT */
+/* GIFT CARD */
+.gift-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 25px;
+  padding: 25px 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  margin-top: 15px;
+  max-width: 320px;
+  animation: cardFade 1.2s ease forwards;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 1s ease, box-shadow 1s ease;
+}
+
+/* HUG CARD EFFECT */
+.gift-card.hugging {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(255,255,255,0.6);
+}
+
+@keyframes cardFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gift-card p {
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* Hug Text */
+.hug-text {
+  margin-top: 15px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.hug-text.show {
+  opacity: 1;
+}
+
+/* FLOATING HEARTS */
 .floating-heart {
   position: absolute;
   font-size: 20px;
@@ -127,6 +170,7 @@ button:active {
     opacity: 0;
   }
 }
+
 </style>
 </head>
 
@@ -134,7 +178,7 @@ button:active {
 
 <div class="container">
 
-<!-- LOGIN PAGE -->
+<!-- LOGIN -->
 <div id="login">
   <h2>🔐 A Special Surprise Awaits</h2>
   <p>Enter the secret code 💜</p>
@@ -143,23 +187,30 @@ button:active {
   <p id="error" style="color:#ffd6ff;"></p>
 </div>
 
-<!-- GIFT PAGE -->
+<!-- GIFT -->
 <div id="gift" class="hidden">
   <div class="heart">💜</div>
-  <h1>To My Favorite Person</h1>
-  <p>
-    Every moment with you feels magical.<br>  
-    You make my world softer, brighter, and warmer.<br>  
-    This little surprise is just a reminder<br>  
-    of how special you are to me.
-  </p>
-  <h3>Always yours 💫</h3>
+
+  <div class="gift-card" id="card">
+    <h1>To My Favorite Person</h1>
+    <p>
+      Every moment with you feels magical.<br>
+      You make my world softer, brighter, and warmer.<br>
+      This little surprise is just a reminder<br>
+      of how special you are to me.
+    </p>
+    <h3>Always yours 💫</h3>
+  </div>
+
+  <div class="hug-text" id="hugText">
+    🤍 Sending you the biggest hug right now...
+  </div>
 </div>
 
 </div>
 
 <script>
-// PASSWORD CHECK
+
 function checkPassword() {
   const input = document.getElementById("password").value;
   const correctPassword = "14344_Nourito";
@@ -167,13 +218,21 @@ function checkPassword() {
   if (input === correctPassword) {
     document.getElementById("login").classList.add("hidden");
     document.getElementById("gift").classList.remove("hidden");
+
     startFloatingHearts();
+
+    // Trigger hug effect
+    setTimeout(() => {
+      document.body.classList.add("hug");
+      document.getElementById("card").classList.add("hugging");
+      document.getElementById("hugText").classList.add("show");
+    }, 800);
+
   } else {
     document.getElementById("error").innerText = "That’s not the right code 💔";
   }
 }
 
-// FLOATING HEARTS EFFECT
 function startFloatingHearts() {
   const colors = ["#ff6ff2","#ffd6ff","#ffb6c1"];
   for(let i=0; i<15; i++){
@@ -181,20 +240,19 @@ function startFloatingHearts() {
     heart.className = "floating-heart";
     heart.innerText = "💜";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = 20 + Math.random() * 20 + "px";
-    heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+    heart.style.fontSize = 18 + Math.random() * 25 + "px";
+    heart.style.animationDuration = 4 + Math.random() * 4 + "s";
     heart.style.color = colors[Math.floor(Math.random() * colors.length)];
     document.body.appendChild(heart);
 
-    setTimeout(() => { heart.remove(); }, 6000);
+    setTimeout(() => { heart.remove(); }, 7000);
   }
 
-  // Repeat hearts every 1.5 seconds
-  setTimeout(startFloatingHearts, 1500);
+  setTimeout(startFloatingHearts, 1800);
 }
 
-// START FLOATING HEARTS IMMEDIATELY ON LOGIN PAGE
 startFloatingHearts();
+
 </script>
 
 </body>
